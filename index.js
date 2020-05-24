@@ -16,7 +16,7 @@ app.use(cors())
 app.use(bodyParser())
 
 app.get("/", (req, res) => {
-    res.send('Hello Worldzzdddz')
+    res.send('Hello Worldzdddz')
 })
 
 

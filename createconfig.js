@@ -48,7 +48,7 @@ console.log("----------------");
 // console.log("decoded javascript String : " + decodedjsobjectconfig);
 // console.log("decoded javascript String key value : " + decodedjsobjectconfig.name);
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////
 
 
 /*
@@ -60,3 +60,16 @@ let jsobjectconfig = {
 */
 
 //FGRCONFIG=eyJuYW1lIjoiam9obiIsInVzZXJuYW1lIjoiam9obnVzZXJuYW1lIiwicGFzc3dvcmQiOiJqb2hucGFzc3dvcmQifQ==
+
+
+// let jsobjectconfig = { 
+//     name: "john",
+//     username: "johnusername",
+//     password: "johnpassword",
+//     hasWhitelist : true,
+//     whitelist: ["http://localhost:3000","http://localhost:4000"],
+//     endpoints: 2
+// }
+
+
+//FGRCONFIG=eyJuYW1lIjoiam9obiIsInVzZXJuYW1lIjoiam9obnVzZXJuYW1lIiwicGFzc3dvcmQiOiJqb2hucGFzc3dvcmQiLCJoYXNXaGl0ZWxpc3QiOnRydWUsIndoaXRlbGlzdCI6WyJodHRwOi8vbG9jYWxob3N0OjMwMDAiLCJodHRwOi8vbG9jYWxob3N0OjQwMDAiXSwiZW5kcG9pbnRzIjoyfQ==

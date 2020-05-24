@@ -2,7 +2,7 @@ encodedconfig = process.env.FGRCONFIG
 
 //default configuration
 let configObject = { 
-    name: "alan",
+    name: "george alan",
     username: "alanusername",
     password: "alanpassword",
     hasWhitelist : false,
