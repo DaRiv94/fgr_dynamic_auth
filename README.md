@@ -20,7 +20,9 @@ let base64data = buff.toString('base64');
 
 ```
 
-Where now base64data shoule be FGRCONFIG
+Where now `base64data` shoule be FGRCONFIG
 
 in .env
-`FGRCONFIG=<base64data>`
+```
+FGRCONFIG=<base64data>
+```
