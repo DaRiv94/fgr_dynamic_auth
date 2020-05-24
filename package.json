@@ -5,7 +5,8 @@
         "cors": "*",
         "body-parser": "*",
         "dotenv": "*",
-        "nodemon": "*"
+        "nodemon": "*",
+        "jsonwebtoken": "^8.5.1"
     },
     "scripts": {
         "start": "node index.js",

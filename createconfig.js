@@ -3,13 +3,34 @@
 
 //object
 
-let jsobjectconfig = { 
-    name: "john",
-    username: "johnusername",
-    password: "johnpassword",
-    hasWhitelist : true,
-    whitelist: ["http://localhost:3000","http://localhost:4000"],
-    endpoints: 2
+let configObject = { 
+
+    //-- authServiceType:
+    //"Simple" - one user account, one Admin account 
+    //"finite" - finite user accounts, finite admin accounts
+    //"multi" - many user accounts, many admin accounts
+    authServiceType: "simple", 
+
+
+    //-- userPassword (simple authServiceType only, [required]) 
+    // <String> of user password
+    userPassword: "Password123!",
+
+    //-- userMetadata (simple authServiceType only) for addtional data 
+    // <Object> of user metadata
+    //userMetadata: { isAdmin:false, color:"blue"},
+
+    //-- adminPassword (simple authServiceType only) 
+    // <String> 
+    adminPassword: "adminPassword123!",
+
+    //-- adminMetadata (simple authServiceType only) for addtional data 
+    // <Object> of admin metadata
+    //adminMetadata: { isAdmin:true, color:"purple"},
+
+    // -- whitelist (all authServiceTypes [required])
+    // <Array>
+    whitelist:["http://localhost:4000"]
 }
 
 
@@ -20,7 +41,7 @@ let jsobjectconfig = {
 
 
 
-let jsonString = JSON.stringify(jsobjectconfig);
+let jsonString = JSON.stringify(configObject);
 
 // console.log("New JSON String : " + jsonString);
 

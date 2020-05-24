@@ -2,42 +2,51 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 app = express();
-const cors = require("cors");
 config = require('./config');
 
-console.log("config data:", config.name)
-if(config.hasWhitelist){
-    for (whitelabel in config.whitelist){
-        console.log(config.whitelist[whitelabel]);
-    }
+// console.log("config data:", config.name)
+// if(config.hasWhitelist){
+//     for (whitelabel in config.whitelist){
+//         console.log(config.whitelist[whitelabel]);
+//     }
+// }
+
+// parse application/json
+app.use(bodyParser.json());
+
+
+if(!config.authServiceType=="simple"){
+    console.log("Configuring Mongodb With Auth Service...")
+    require('./startup/mongodb')();
 }
 
-app.use(cors())
-app.use(bodyParser())
 
-app.get("/", (req, res) => {
-    res.send('Hello Worldzdddz')
-})
+require('./startup/cors')(app);
+require('./startup/routes')(app);
 
-
-app.get("/auth", (req, res) => {
-
-    authobject = {
-        hasConfig: false,
-        config: {}
-    }
+// app.get("/", (req, res) => {
+//     res.send('Hello Worldzdddz')
+// })
 
 
+// app.get("/auth", (req, res) => {
 
-    authobject.hasConfig = true
-    authobject.config = config
+//     authobject = {
+//         hasConfig: false,
+//         config: {}
+//     }
 
 
-    console.log(config.name)
 
-    res.send({ "authobject": authobject })
+//     authobject.hasConfig = true
+//     authobject.config = config
 
-})
+
+//     console.log(config.name)
+
+//     res.send({ "authobject": authobject })
+
+// })
 
 port = process.env.PORT || 4000
 app.listen(port, (err) => {
