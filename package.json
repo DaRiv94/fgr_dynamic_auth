@@ -1,0 +1,15 @@
+{
+    "name": "fgrauthservice",
+    "dependencies": {
+        "express": "*",
+        "cors": "*",
+        "body-parser": "*",
+        "dotenv": "*",
+        "nodemon": "*"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "app": "nodemon index.js",
+        "config":"node createconfig.js"
+    }
+}
