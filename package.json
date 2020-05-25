@@ -11,7 +11,15 @@
     "scripts": {
         "start": "node index.js",
         "app": "nodemon index.js",
-        "config":"node createconfig.js",
-        "readme":"node readme.js"
+        "test": "jest",
+        "watchtest": "jest --watchAll",
+        "config": "node createconfig.js",
+        "readme": "node readme.js"
+    },
+    "devDependencies": {
+        "jest": "^26.0.1",
+        "node-mocks-http": "^1.8.1",
+        "sinon": "^9.0.2",
+        "supertest": "^4.0.2"
     }
 }

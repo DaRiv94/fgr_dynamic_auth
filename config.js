@@ -1,35 +1,42 @@
 encodedconfig = process.env.FGRCONFIG
-
 // simple default configuration
 let configObject = { 
-
-    //-- authServiceType:
-    //"Simple" - one user account, one Admin account 
-    //"finite" - finite user accounts, finite admin accounts
-    //"multi" - many user accounts, many admin accounts
     authServiceType: "simple", 
-
-
-    //-- userPassword (simple authServiceType only, [required]) 
-    // <String> of user password
     userPassword: "Password123!",
-
-    //-- userMetadata (simple authServiceType only) for addtional data 
-    // <Object> of user metadata
-    //userMetadata: { isAdmin:false, color:"blue"},
-
-    //-- adminPassword (simple authServiceType only) 
-    // <String> 
     adminPassword: "adminPassword123!",
-
-    //-- adminMetadata (simple authServiceType only) for addtional data 
-    // <Object> of admin metadata
-    //adminMetadata: { isAdmin:true, color:"purple"},
-
-    // -- whitelist (all authServiceTypes [required])
-    // <Array>
     whitelist:["http://localhost:4000"]
 }
+
+// // simple default configuration
+// let configObject = { 
+
+//     //-- authServiceType:
+//     //"Simple" - one user account, one Admin account 
+//     //"finite" - finite user accounts, finite admin accounts
+//     //"multi" - many user accounts, many admin accounts
+//     authServiceType: "simple", 
+
+
+//     //-- userPassword (simple authServiceType only, [required]) 
+//     // <String> of user password
+//     userPassword: "Password123!",
+
+//     //-- userMetadata (simple authServiceType only) for addtional data 
+//     // <Object> of user metadata
+//     //userMetadata: { isAdmin:false, color:"blue"},
+
+//     //-- adminPassword (simple authServiceType only) 
+//     // <String> 
+//     adminPassword: "adminPassword123!",
+
+//     //-- adminMetadata (simple authServiceType only) for addtional data 
+//     // <Object> of admin metadata
+//     //adminMetadata: { isAdmin:true, color:"purple"},
+
+//     // -- whitelist (all authServiceTypes [required])
+//     // <Array>
+//     whitelist:["http://localhost:4000"]
+// }
 
 //decode to get configuration data if it exists
 if (encodedconfig) {

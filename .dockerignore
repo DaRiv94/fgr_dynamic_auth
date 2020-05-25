@@ -1,6 +1,14 @@
+
+#configuration + Environment
+.env
+config.json
+
+#Readme
 *.md
 !README.md
 
-.env
+#dependancies
+/node_modules
 
-config.json
+#testing coverage
+/coverage

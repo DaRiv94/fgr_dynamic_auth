@@ -1,7 +1,6 @@
 const cors = require('cors');
 config = require('../config');
 
-
 module.exports=(app)=>{
 
     

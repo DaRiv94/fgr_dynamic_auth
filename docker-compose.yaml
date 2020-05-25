@@ -10,3 +10,12 @@ services:
             - /app/node_modules
             - .:/app
         env_file: .env
+    test:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        volumes:
+            - /app/node_modules
+            - .:/app
+        env_file: .env
+        command: ["npm","run","watchtest"]

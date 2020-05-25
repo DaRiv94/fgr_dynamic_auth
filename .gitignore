@@ -1,5 +1,12 @@
+
+
+#configuration + Environment
+.env
+config.json
+
+#dependancies
 /node_modules
 
-.env
+#testing coverage
+/coverage
 
-config.json
