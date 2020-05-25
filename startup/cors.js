@@ -4,9 +4,10 @@ config = require('../config');
 
 module.exports=(app)=>{
 
+    
     //cors
-    if(process.env.NODE_ENV=='development'){
-        console.log("CORS is in development Mode")
+    if(process.env.NODE_ENV=='development' || config.whitelist[0]=="*"){
+        console.log("WARNING: CORS is set to all domains")
         app.use(cors());
     }else{
 

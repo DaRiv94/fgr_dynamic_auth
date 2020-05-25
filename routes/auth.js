@@ -44,8 +44,8 @@ function postLoginSimpleAuthServiceType(req, res, sentPassword){
     }else if(config.adminPassword && sentPassword==config.adminPassword){
 
         adminData = { isAdmin:true}
-        if(config.userMetadata){ //JUST AN FYI if config.userMetadata exists, it should always contain { isAdmin:true} within it
-            adminData = config.userMetadata
+        if(config.adminMetadata){ //JUST AN FYI if config.userMetadata exists, it should always contain { isAdmin:true} within it
+            adminData = config.adminMetadata
         }
         token= jwt.sign(adminData, config.adminPassword);
         return res.send({token});

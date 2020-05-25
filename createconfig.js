@@ -1,59 +1,75 @@
 // for development, I incude this file to create base 64 encoded string for dynamic auth service
 
+let base64data;
+try {
+    let configjsonfile = require("./config.json");
 
-//object
+    let jsonString = JSON.stringify(configjsonfile);
+    let buff = Buffer.from(jsonString) // New
+    // let buff = Buffer.from(configjsonfile) // New
+    base64data = buff.toString('base64');
 
-let configObject = { 
+} catch (error) {
+    console.log(`error ${error}...`)
+    console.log("NO config.json found!!!!")
+    console.log("configuring defaults...")
 
-    //-- authServiceType:
-    //"Simple" - one user account, one Admin account 
-    //"finite" - finite user accounts, finite admin accounts
-    //"multi" - many user accounts, many admin accounts
-    authServiceType: "simple", 
+    //object
+
+    let configObject = { 
+
+        //-- authServiceType:
+        //"Simple" - one user account, one Admin account 
+        //"finite" - finite user accounts, finite admin accounts
+        //"multi" - many user accounts, many admin accounts
+        authServiceType: "simple", 
 
 
-    //-- userPassword (simple authServiceType only, [required]) 
-    // <String> of user password
-    userPassword: "Password123!",
+        //-- userPassword (simple authServiceType only, [required]) 
+        // <String> of user password
+        userPassword: "Password123!",
 
-    //-- userMetadata (simple authServiceType only) for addtional data 
-    // <Object> of user metadata
-    //userMetadata: { isAdmin:false, color:"blue"},
+        //-- userMetadata (simple authServiceType only) for addtional data 
+        // <Object> of user metadata
+        //userMetadata: { isAdmin:false, color:"blue"},
 
-    //-- adminPassword (simple authServiceType only) 
-    // <String> 
-    adminPassword: "adminPassword123!",
+        //-- adminPassword (simple authServiceType only) 
+        // <String> 
+        adminPassword: "adminPassword123!",
 
-    //-- adminMetadata (simple authServiceType only) for addtional data 
-    // <Object> of admin metadata
-    //adminMetadata: { isAdmin:true, color:"purple"},
+        //-- adminMetadata (simple authServiceType only) for addtional data 
+        // <Object> of admin metadata
+        //adminMetadata: { isAdmin:true, color:"purple"},
 
-    // -- whitelist (all authServiceTypes [required])
-    // <Array>
-    whitelist:["http://localhost:4000"]
+        // -- whitelist (all authServiceTypes [required])
+        // <Array>
+        whitelist:["http://localhost:4000"]
+    }
+
+    let jsonString = JSON.stringify(configObject);
+    let buff = Buffer.from(jsonString) // New
+    base64data = buff.toString('base64');
+
 }
 
 
-///ecnode object
-
-// console.log("New javascript String : " + jsobjectconfig);
-// console.log("New javascript String key value : " + jsobjectconfig.name);
 
 
-
-let jsonString = JSON.stringify(configObject);
-
-// console.log("New JSON String : " + jsonString);
-
-// let buff = new Buffer(jsonString);
-let buff = Buffer.from(jsonString) // New
-let base64data = buff.toString('base64');
-
-// console.log('"' + jsonString + '" converted to Base64 is "' + base64data + '"');
 
 console.log("----------------");
 console.log(base64data);
 console.log("----------------");
+
+
+
+
+
+
+
+
+
+
+
 
 
 
