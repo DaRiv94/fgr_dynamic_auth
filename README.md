@@ -1,5 +1,7 @@
 Welcome to the FGR Dynamic auth service!!
 
+Docker image - https://hub.docker.com/repository/docker/dariv94/fgrauthservice
+
 Thanks for checking out the readme for this docker file-  `docker run dariv94\/fgrauthservice npm run readme`
 
 You will need to create a config file and encode it then add it as the env var FGRCONFIG
