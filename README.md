@@ -71,3 +71,50 @@ PORT=4000
 NODE_ENV=development
 FGRCONFIG=eyJhdXRoU2VydmljZVR5cGUiOiJzaW1wbGUiLCJ1c2VyUGFzc3dvcmQiOiJQYXNzd29yZDEiLCJ1c2VyTWV0YWRhdGEiOnsiaXNBZG1pbiI6ZmFsc2UsImNvbG9yIjoiYmx1ZSJ9LCJhZG1pblBhc3N3b3JkIjoiYWRtaW4xIiwiYWRtaW5NZXRhZGF0YSI6eyJpc0FkbWluIjp0cnVlLCJjb2xvciI6InB1cnBsZSJ9LCJ3aGl0ZWxpc3QiOlsiaHR0cDovL2xvY2FsaG9zdDo0MDAwIl19
 ```
+
+Endpoints Documention
+--
+
+authServiceType:simple Endpoints
+---
+
+Two endpoints aviliable. 
+
+/auth/login
+----
+- Endpoint: `/auth/login`
+- Method: `POST`
+- Request Body: `{"password":"<PASSWORD_HERE>"}`
+- 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
+- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+
+Fetch Example...
+```
+  const response = fetch('http://localhost:4000/auth/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({password:"mypassword"})
+  });
+  console.log(response.body)
+```
+
+/auth
+----
+- Endpoint: `/auth`
+- Method: `POST`
+- Request Header: `a-auth-token:<JWT_TOKEN_WILL_BE_HERE>`
+- Request Body: `none`
+- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+
+Fetch Example...
+```
+  const response = fetch('http://localhost:4000/auth', {
+    method: 'POST',
+    headers: {
+      'x-auth-token': 'application/json'
+    },
+  });
+  console.log(response.body)
+```
