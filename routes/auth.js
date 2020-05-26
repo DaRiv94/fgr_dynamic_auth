@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 config = require('../config');
-let {postLoginSimpleAuthServiceType} = require("./simpleAuthServiceLogin");
+let {postLoginSimpleAuthServiceType} = require("./routeHelpers/simpleAuthServiceLogin");
 const auth = require('../middleware/auth');
 
 router.post("/login", (req,res)=>{

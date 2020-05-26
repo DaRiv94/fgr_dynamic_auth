@@ -6,6 +6,9 @@ function postLoginSimpleAuthServiceType(req, res, sentPassword){
     if(sentPassword==config.userPassword){
         userData = { isAdmin:false}
         if(config.userMetadata){ //JUST AN FYI if config.userMetadata exists, it should always contain { isAdmin:false} within it
+            if (!('isAdmin' in config.userMetadata)){
+                config.userMetadata = Object.assign({ isAdmin:false}, config.userMetadata);
+            }
             userData = config.userMetadata
         }
         token= jwt.sign(userData, config.userPassword);
@@ -16,6 +19,9 @@ function postLoginSimpleAuthServiceType(req, res, sentPassword){
 
         adminData = { isAdmin:true}
         if(config.adminMetadata){ //JUST AN FYI if config.userMetadata exists, it should always contain { isAdmin:true} within it
+            if (!('isAdmin' in config.adminMetadata)){
+                config.adminMetadata = Object.assign({ isAdmin:true}, config.adminMetadata);
+            }
             adminData = config.adminMetadata
         }
         token= jwt.sign(adminData, config.adminPassword);
