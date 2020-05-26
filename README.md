@@ -56,7 +56,8 @@ EX `"adminMetadata": { "isAdmin":true, color:"purple"}`
 
 whitelist (all authServiceTypes ) [required]
 ---
- __\<Array\>__ - Array of Strings where the strings of domains to whitelist
+ __\<Array\>__ - Array of Strings where the strings of domains to whitelist 
+ NOTE: to allow for all origins add `["*"]` ad the whitelist value.
  
 EX `"whitelist":["http://localhost:4000"]`
 
