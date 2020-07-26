@@ -38,6 +38,27 @@ let configObject = {
 //     whitelist:["http://localhost:4000"]
 // }
 
+
+//Sample finite default configuration
+
+// let configObject = { 
+//     authServiceType: "finite", 
+//     default_user_email: "frankgriviera@outlook.com",
+//     default_user_password: "Password123!",
+//     default_admin_email: "frankgriviera@outlook.com",
+//     default_admin_password: "adminPassword123!",
+//     database_type:"MONGODB",
+//     database_connectionstring:"",
+//     database_connectionstring_dev:"",
+//     user_account_limit:  1,
+//     admin_account_limit: 1,
+//     whitelist:["*"]
+// }
+
+
+
+
+
 //decode to get configuration data if it exists
 if (encodedconfig) {
     let buff = Buffer.from(encodedconfig, 'base64');  
