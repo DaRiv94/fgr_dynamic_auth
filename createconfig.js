@@ -2,9 +2,11 @@
 
 let base64data;
 try {
+
     let configjsonfile = require("./config.json");
 
     let jsonString = JSON.stringify(configjsonfile);
+    console.log("jsonString",jsonString)
     let buff = Buffer.from(jsonString) // New
     // let buff = Buffer.from(configjsonfile) // New
     base64data = buff.toString('base64');

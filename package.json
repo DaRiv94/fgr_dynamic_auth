@@ -1,12 +1,14 @@
 {
     "name": "fgrauthservice",
     "dependencies": {
-        "express": "*",
-        "cors": "*",
+        "@hapi/joi": "^17.1.1",
         "body-parser": "*",
+        "cors": "*",
         "dotenv": "*",
-        "nodemon": "*",
-        "jsonwebtoken": "^8.5.1"
+        "express": "*",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.9.25",
+        "nodemon": "*"
     },
     "scripts": {
         "start": "node index.js",
