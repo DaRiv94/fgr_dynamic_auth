@@ -8,7 +8,11 @@
         "express": "*",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.25",
-        "nodemon": "*"
+        "nodemon": "*",
+        "pg": "^8.4.2",
+        "pg-hstore": "^2.3.3",
+        "sequelize": "^6.3.5",
+        "sequelize-cli": "^6.2.0"
     },
     "scripts": {
         "start": "node index.js",
