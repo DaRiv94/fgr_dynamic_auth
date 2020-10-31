@@ -47,10 +47,11 @@ encodedconfig = process.env.FGRCONFIG
 //     default_admin_email: "frankgriviera@outlook.com",
 //     default_admin_password: "adminPassword123!",
 //     database_type:"POSTGRES",
-//     database_connectionstring:"",
+//     database_connectionstring:"postgres://postgres:postgres@pg1:5432/local_fgr_budget",
 //     database_connectionstring_dev:"",
 //     user_account_limit:  1,
 //     admin_account_limit: 1,
+//     jwtsecret:"fgrabc123",
 //     whitelist:["*"]
 // }
 
@@ -64,7 +65,8 @@ let configObject = {
     database_connectionstring:"",
     database_connectionstring_dev:"",
     user_account_limit:  3,
-    admin_account_limit: 1,
+    admin_account_limit: 0,
+    jwtsecret:"fgrabc123",
     whitelist:["*"]
 }
 

@@ -26,7 +26,7 @@ if(config.authServiceType=="finite"){
     }
     if(config.database_type=="POSTGRES"){
         console.log("Configuring Postgres With Auth Service...")
-        require('./databases/postgres/startup')();
+        let db = require('./databases/postgres/startup');
     }
 }
 

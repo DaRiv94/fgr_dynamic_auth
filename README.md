@@ -2,6 +2,14 @@ Welcome to the FGR Dynamic auth service!!
 
 Docker image - https://hub.docker.com/repository/docker/dariv94/fgrauthservice
 
+QuickStart
+---
+1. Create config.json file with configuration data. (check this readme or the config.js file for commented examples)
+2. run `node ./createconfig.js` in the root folder where your config.js file is and add the output of the file as your *FGRCONFIG* to your .env file
+3. Start docker-compose `docker-compose up`
+4. (finite config using sequelize orm only, Run migrations `docker exec fgr_dynamic_auth_web_1 npx sequelize db:migrate`)
+
+
 Thanks for checking out the readme for this docker file-  `docker run dariv94\/fgrauthservice npm run readme`
 
 You will need to create a config file and encode it then add it as the env var FGRCONFIG
