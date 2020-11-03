@@ -1,3 +1,11 @@
+
+
+If Migrations are done on this app
+you can create a new migration with the sequelize-cli 
+`docker exec <contianer_id_Or_name> npx sequelize migration:create --name User`
+
+Create migration file like so
+```
 const { DataTypes } = require('sequelize');
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -33,3 +41,9 @@ module.exports = {
     return await queryInterface.dropTable('Users');
   }
 };
+```
+Check status
+`docker exec <contianer_id_Or_name> npx sequelize db:migrate:status`
+
+Migrate
+`docker exec <contianer_id_Or_name> npx sequelize db:migrate`

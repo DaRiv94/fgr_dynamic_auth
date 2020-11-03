@@ -66,6 +66,7 @@ let configObject = {
     database_connectionstring_dev:"",
     user_account_limit:  3,
     admin_account_limit: 0,
+    admin_registration_secret:"adminpass123!",
     jwtsecret:"fgrabc123",
     whitelist:["*"]
 }
