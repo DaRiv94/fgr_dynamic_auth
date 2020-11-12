@@ -122,3 +122,10 @@ Fetch Example...
   });
   console.log(response.body)
 ```
+
+----
+Build and Start with docker toolbox (Windows 10 Home)
+
+`docker build -f Dockerfile.dev -t fgrdauth .`
+
+`docker run --rm -p 4000:4000 --name fgr_dynamic_auth_web_1 --network budget --env-file .env -e CHOKIDAR_USEPOLLING=true -v /app/node_modules  -v /c/Users/frank/OneDrive/Development/02_Projects_In_Production/0027_PersonalBudgetApp/fgr_dynamic_auth:/app fgrdauth`
