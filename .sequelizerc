@@ -1,0 +1,15 @@
+// .sequelizerc
+
+const path = require('path');
+require('dotenv').config()
+config = require('../../config');
+
+if(config.database_type=="POSTGRES"){
+    console.log("Configuring Postgres Sequelize CLI...")
+
+  module.exports = {
+    'config': path.resolve('db', 'config.js'),
+    'seeders-path': path.resolve('db', 'seeders'),
+    'migrations-path': path.resolve('db', 'migrations')
+  };
+}
