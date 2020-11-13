@@ -1,4 +1,9 @@
-version: '3'
+version: '3.8'
+
+networks:
+    budget:
+      external: true
+
 services:
     web:
         build:
@@ -10,6 +15,10 @@ services:
             - /app/node_modules
             - .:/app
         env_file: .env
+        environment: 
+            - CHOKIDAR_USEPOLLING=true
+        networks: 
+            - budget
     test:
         build:
             context: .
@@ -19,3 +28,5 @@ services:
             - .:/app
         env_file: .env
         command: ["npm","run","watchtest"]
+        networks: 
+            - budget

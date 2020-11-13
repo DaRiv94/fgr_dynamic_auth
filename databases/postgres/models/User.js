@@ -1,23 +1,14 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = require("../db/sequelize");
+const sequelize = require("../startup");
 
 class User extends Model {}
 
 User.init({
-  // Model attributes are defined here
-  id:{
-    type:Sequelize.INTEGER(11),
-    allowNull:false,
-    autoIncrement:true,
-    primaryKey:true
-  },
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  lastName: {
-    type: DataTypes.STRING
-  }
+  email: DataTypes.STRING,
+  password_hash: DataTypes.STRING,
+  email_verified: DataTypes.BOOLEAN,
+  email_verification_token: DataTypes.STRING,
+  is_admin: DataTypes.BOOLEAN,
 }, {
   // Other model options go here
   sequelize, // We need to pass the connection instance

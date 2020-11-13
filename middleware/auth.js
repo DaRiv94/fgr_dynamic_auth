@@ -28,10 +28,13 @@ module.exports=function (req, res, next){
             }
 
         }
+    }else if(config.authServiceType=="finite"){
+        try{
+            const decoded = jwt.verify(token,config.jwtsecret);
+            req.user = decoded;
+            next();
+        }catch(ex){
+            return res.status(400).send('Invalid token')
+        }
     }
 }
-
-
-// function middlewareSimpleAuthServiceType(){
-
-// }
