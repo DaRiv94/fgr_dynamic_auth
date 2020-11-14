@@ -29,7 +29,8 @@ async function postLoginFiniteAuthServiceType(req, res, email, password){
             email_verified:user.email_verified,
             id:user.id,
             createdAt:user.createdAt,
-            updatedAt:user.updatedAt }
+            updatedAt:user.updatedAt,
+            token_createdAt: Date.now() }
         token= jwt.sign(userData, config.jwtsecret);
         responseObject = Object.assign({token}, userData);
         return res.send(responseObject);

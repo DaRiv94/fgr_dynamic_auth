@@ -31,6 +31,12 @@ module.exports=function (req, res, next){
     }else if(config.authServiceType=="finite"){
         try{
             const decoded = jwt.verify(token,config.jwtsecret);
+
+            //Token expires in 180,000 milliseconds (3 hours)
+            if(Date.now() - decoded.token_createdAt > 180,000){
+                return res.status(400).send('Token Expired')
+            }
+
             req.user = decoded;
             next();
         }catch(ex){
