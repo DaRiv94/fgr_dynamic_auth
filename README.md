@@ -141,7 +141,7 @@ ENV example for fgr budget kubernetes used config.json...
     "database_connectionstring":"postgres://postgres:postgres@pg1:5432/local_fgr_budget",
     "user_account_limit":  3,
     "admin_account_limit": 1,
-    "jwtsecret":"fgrabc123",
+    "jwtsecret":"my_jwtsecret_here",
     "whitelist":["*"]
 }
 ```
