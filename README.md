@@ -129,3 +129,25 @@ Build and Start with docker toolbox (Windows 10 Home)
 `docker build -f Dockerfile.dev -t fgrdauth .`
 
 `docker run --rm -p 4000:4000 --name fgr_dynamic_auth_web_1 --network budget --env-file .env -e CHOKIDAR_USEPOLLING=true -v /app/node_modules  -v /c/Users/frank/OneDrive/Development/02_Projects_In_Production/0027_PersonalBudgetApp/fgr_dynamic_auth:/app fgrdauth`
+
+---
+ENV example for fgr budget kubernetes used config.json...
+```
+{ 
+    "authServiceType": "finite", 
+    "default_admin_email": "frankgriviera@outlook.com",
+    "default_admin_password": "adminPassword123!",
+    "database_type":"POSTGRES",
+    "database_connectionstring":"postgres://postgres:postgres@pg1:5432/local_fgr_budget",
+    "user_account_limit":  3,
+    "admin_account_limit": 1,
+    "jwtsecret":"fgrabc123",
+    "whitelist":["*"]
+}
+```
+This was encypted and then added to the env file. so then the env file was 
+```
+FGRCONFIG=eyJhdXRoU2VydmljZVR5cGUiOiJmaW5pdGUiLCJkZWZhdWx0X2FkbWluX2VtYWlsIjoiZnJhbmtncml2aWVyYUBvdXRsb29rLmNvbSIsImRlZmF1bHRfYWRtaW5fcGFzc3dvcmQiOiJhZG1pblBhc3N3b3JkMTIzISIsImRhdGFiYXNlX3R5cGUiOiJQT1NUR1JFUyIsImRhdGFiYXNlX2Nvbm5lY3Rpb25zdHJpbmciOiJwb3N0Z3JlczovL3Bvc3RncmVzOnBvc3RncmVzQHBnMTo1NDMyL2xvY2FsX2Zncl9idWRnZXQiLCJ1c2VyX2FjY291bnRfbGltaXQiOjMsImFkbWluX2FjY291bnRfbGltaXQiOjEsImp3dHNlY3JldCI6ImZncmFiYzEyMyIsIndoaXRlbGlzdCI6WyIqIl19
+NODE_ENV=development
+PORT=4000
+```
