@@ -145,6 +145,10 @@ ENV example for fgr budget kubernetes used config.json...
     "whitelist":["*"]
 }
 ```
+
+with a docker image of kubebud_dynamic_auth this can be achived in a folder with your config.json like so
+`docker run -it --rm -v ${pwd}/config.json:/app/config.json kubebud_dynamic_auth npm run config`
+
 This was encypted and then added to the env file. so then the env file was 
 ```
 FGRCONFIG=eyJhdXRoU2VydmljZVR5cGUiOiJmaW5pdGUiLCJkZWZhdWx0X2FkbWluX2VtYWlsIjoiZnJhbmtncml2aWVyYUBvdXRsb29rLmNvbSIsImRlZmF1bHRfYWRtaW5fcGFzc3dvcmQiOiJhZG1pblBhc3N3b3JkMTIzISIsImRhdGFiYXNlX3R5cGUiOiJQT1NUR1JFUyIsImRhdGFiYXNlX2Nvbm5lY3Rpb25zdHJpbmciOiJwb3N0Z3JlczovL3Bvc3RncmVzOnBvc3RncmVzQHBnMTo1NDMyL2xvY2FsX2Zncl9idWRnZXQiLCJ1c2VyX2FjY291bnRfbGltaXQiOjMsImFkbWluX2FjY291bnRfbGltaXQiOjEsImp3dHNlY3JldCI6ImZncmFiYzEyMyIsIndoaXRlbGlzdCI6WyIqIl19
