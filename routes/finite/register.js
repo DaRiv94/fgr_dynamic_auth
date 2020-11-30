@@ -28,7 +28,7 @@ router.post("/", async (req,res)=>{
         
         const user = await User.findOne({
             where: {
-                email: req.body.email
+                email: req.body.email.toLowerCase()
             }
         })
         if (user){
@@ -47,7 +47,7 @@ router.post("/", async (req,res)=>{
             var salt = bcrypt.genSaltSync(10);
             var password_hash = bcrypt.hashSync(req.body.password, salt);
 
-            const newUser = await User.create({ email: req.body.email, password_hash: password_hash, email_verified:false, is_admin: false});
+            const newUser = await User.create({ email: req.body.email.toLowerCase(), password_hash: password_hash, email_verified:false, is_admin: false});
             newuserData = {is_admin:newUser.is_admin, 
                 email:newUser.email,
                 email_verified:newUser.email_verified,

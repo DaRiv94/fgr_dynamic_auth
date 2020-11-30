@@ -9,9 +9,10 @@ let User = require('../../../databases/postgres/models/User')
 async function postLoginFiniteAuthServiceType(req, res, email, password){
     console.log("postLoginFiniteAuthServiceType....")
     try{
+        
         const user = await User.findOne({
             where: {
-                email: email
+                email: email.toLowerCase()
             }
         })
 
