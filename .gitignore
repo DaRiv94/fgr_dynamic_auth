@@ -5,6 +5,9 @@
 config.json
 config*.json
 
+# config info for fgr-budget-app
+fgr-budget-app-config.md
+
 #dependancies
 /node_modules
 

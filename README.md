@@ -1,19 +1,53 @@
 Welcome to the FGR Dynamic auth service!!
 
-Docker image - https://hub.docker.com/repository/docker/dariv94/fgrauthservice
+## What is this project?
 
-QuickStart
----
-1. Create config.json file with configuration data. (check this readme or the config.js file for commented examples)
-2. run `node ./createconfig.js` in the root folder where your config.js file is and add the output of the file as your *FGRCONFIG* to your .env file
+FGR Dynamic Auth Service was created so that I ([Frankie Riviera](https://frankieriviera.com)) would be able to quickly spin up an authentication and authorization service for my personal projects, while also being dynamic in that it can be configured quickly and easily for different use cases.
+
+However I have intended on structuring this Readme in such a way that anyone could pull the Docker Image and plug and play with this Auth microservice to hopfully save them from rewriting auth logic the way it has for me.
+
+### The DockerHub image can be found [here](https://hub.docker.com/repository/docker/dariv94/fgrauthservice)
+Pull down Image
+```
+docker pull fgrauthservice
+```
+
+# QuickStart
+
+### Prerequisites
+- Docker - find intructions on install docker [here](https://docs.docker.com/get-docker/)
+- A learners mindset. - I live by the phrase *"Everything is hard until you know it"*
+
+### 1. Create config.json file with configuration data. (Find documentation and examples on config.json file below)
+### 2. In the same directory as your config.json file, run the following...  
+**Powershell** 
+```
+docker run -it --rm -v ${pwd}/config.json:/app/config.json fgrauthservice npm run config
+```
+ **Bash/Zsh**
+ ```
+ docker run -it --rm -v $(pwd)/config.json:/app/config.json fgrauthservice npm run config
+ ```
+ 
+ This should output your *.env* file which should contain your FGRCONFIG base64 encoded Key value pair, along with the PORT and NODE_ENV key value pairs if they were specified in your config.json.
+ *NOTE*: If there was already an existing *.env* file, this command will output *0_copy.env* and then if that exists it will put put *1_copy.env* and so on..
+ ### 3. Then start the auth microservice!
+```
+docker run --rm -p 4000:4000 --from-env .env fgrauthservice
+```
+Your should now be able to send a GET request to http://localhost:4000/healthy and get a HTTP 200 OK response.
+
+<!-- 2. run `node ./createconfig.js` in the root folder where your config.js file is and add the output of the file as your *FGRCONFIG* to your .env file
 3. Start docker-compose `docker-compose up`
-4. (finite config using sequelize orm only, Run migrations `docker exec fgr_dynamic_auth_web_1 npx sequelize db:migrate`)
+4. (finite config using sequelize orm only, Run migrations `docker exec fgr_dynamic_auth_web_1 npx sequelize db:migrate`) -->
+<!-- 
 
+Thanks for checking out the readme for this docker file-  `docker run dariv94\/fgrauthservice npm run readme` -->
 
-Thanks for checking out the readme for this docker file-  `docker run dariv94\/fgrauthservice npm run readme`
+<!-- You will need to create a config file and encode it then add it as the env var FGRCONFIG
+Create a config.json file like this... -->
 
-You will need to create a config file and encode it then add it as the env var FGRCONFIG
-Create a config.json file like this...
+# Simple Auth config.json Example 
 
 ```
 { 
@@ -24,9 +58,7 @@ Create a config.json file like this...
 }
 ```
 
-
-
- where...
+# Options
     
 authServiceType [required]
 ---
@@ -38,7 +70,7 @@ __"multi"__ - Many user accounts, many admin accounts
 
 EX: `"authServiceType": "simple"`
 
-userPassword _(simple authServiceType only, )_ [required]
+userPassword _(simple authServiceType only)_ [required]
 ---
  __\<String\>__ - User Password
  
@@ -50,7 +82,7 @@ EX `"userPassword": "Password123!"`
  
 EX `"adminMetadata": { "isAdmin":false, color:"blue"}`
 
-adminPassword _(simple authServiceType only, )_
+adminPassword _(simple authServiceType only)_
 ---
  __\<String\>__ - User Password
  
@@ -64,12 +96,12 @@ EX `"adminMetadata": { "isAdmin":true, color:"purple"}`
 
 whitelist (all authServiceTypes ) [required]
 ---
- __\<Array\>__ - Array of Strings where the strings of domains to whitelist 
- NOTE: to allow for all origins add `["*"]` ad the whitelist value.
+ __\<Array\>__ - Array of Strings where the strings are domains to whitelist. Whitelisted domains is where the fgrauthservice expects requests to originate from.
+ NOTE: to allow for all origins add `["*"]` as the whitelist value.
  
 EX `"whitelist":["http://localhost:4000"]`
 
-Then (assuming you have the docker client and daemon) and in the same directory as your config.json file, run... 
+<!-- Then (assuming you have the docker client and daemon) and in the same directory as your config.json file, run... 
 
 `docker run -it -v ${pwd}/config.json:/app/config.json dariv94/fgrauthservice npm run config`
 
@@ -79,7 +111,9 @@ Then with the env file, run `docker run --rm -p 4000:4000 --env-file .env dariv9
 PORT=4000
 NODE_ENV=development
 FGRCONFIG=eyJhdXRoU2VydmljZVR5cGUiOiJzaW1wbGUiLCJ1c2VyUGFzc3dvcmQiOiJQYXNzd29yZDEiLCJ1c2VyTWV0YWRhdGEiOnsiaXNBZG1pbiI6ZmFsc2UsImNvbG9yIjoiYmx1ZSJ9LCJhZG1pblBhc3N3b3JkIjoiYWRtaW4xIiwiYWRtaW5NZXRhZGF0YSI6eyJpc0FkbWluIjp0cnVlLCJjb2xvciI6InB1cnBsZSJ9LCJ3aGl0ZWxpc3QiOlsiaHR0cDovL2xvY2FsaG9zdDo0MDAwIl19
-```
+``` -->
+
+# Endpoints
 
 authServiceType:simple  Endpoints
 ---
@@ -92,7 +126,8 @@ authServiceType:simple  Endpoints
 - 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
 - 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
 
-Fetch Example...
+<!-- Curl example -->
+<!-- Fetch Example...
 ```
   const response = fetch('http://localhost:4000/auth/login', {
     method: 'POST',
@@ -102,7 +137,7 @@ Fetch Example...
     body: JSON.stringify({password:"mypassword"})
   });
   console.log(response.body)
-```
+``` -->
 
 /auth
 ----
@@ -112,7 +147,7 @@ Fetch Example...
 - Request Body: `none`
 - 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
 
-Fetch Example...
+<!-- Fetch Example...
 ```
   const response = fetch('http://localhost:4000/auth', {
     method: 'POST',
@@ -121,37 +156,6 @@ Fetch Example...
     },
   });
   console.log(response.body)
-```
+``` -->
 
-----
-Build and Start with docker toolbox (Windows 10 Home)
 
-`docker build -f Dockerfile.dev -t fgrdauth .`
-
-`docker run --rm -p 4000:4000 --name fgr_dynamic_auth_web_1 --network budget --env-file .env -e CHOKIDAR_USEPOLLING=true -v /app/node_modules  -v /c/Users/frank/OneDrive/Development/02_Projects_In_Production/0027_PersonalBudgetApp/fgr_dynamic_auth:/app fgrdauth`
-
----
-ENV example for fgr budget kubernetes used config.json...
-```
-{ 
-    "authServiceType": "finite", 
-    "default_admin_email": "frankgriviera@outlook.com",
-    "default_admin_password": "adminPassword123!",
-    "database_type":"POSTGRES",
-    "database_connectionstring":"postgres://postgres:postgres@pg1:5432/local_fgr_budget",
-    "user_account_limit":  3,
-    "admin_account_limit": 1,
-    "jwtsecret":"my_jwtsecret_here",
-    "whitelist":["*"]
-}
-```
-
-with a docker image of kubebud_dynamic_auth this can be achived in a folder with your config.json like so
-`docker run -it --rm -v ${pwd}/config.json:/app/config.json kubebud_dynamic_auth npm run config`
-
-This was encypted and then added to the env file. so then the env file was 
-```
-FGRCONFIG=eyJhdXRoU2VydmljZVR5cGUiOiJmaW5pdGUiLCJkZWZhdWx0X2FkbWluX2VtYWlsIjoiZnJhbmtncml2aWVyYUBvdXRsb29rLmNvbSIsImRlZmF1bHRfYWRtaW5fcGFzc3dvcmQiOiJhZG1pblBhc3N3b3JkMTIzISIsImRhdGFiYXNlX3R5cGUiOiJQT1NUR1JFUyIsImRhdGFiYXNlX2Nvbm5lY3Rpb25zdHJpbmciOiJwb3N0Z3JlczovL3Bvc3RncmVzOnBvc3RncmVzQHBnMTo1NDMyL2xvY2FsX2Zncl9idWRnZXQiLCJ1c2VyX2FjY291bnRfbGltaXQiOjMsImFkbWluX2FjY291bnRfbGltaXQiOjEsImp3dHNlY3JldCI6ImZncmFiYzEyMyIsIndoaXRlbGlzdCI6WyIqIl19
-NODE_ENV=development
-PORT=4000
-```
