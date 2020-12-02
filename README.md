@@ -5,9 +5,9 @@
 
 FGR Dynamic Auth Service was created so that I ([Frankie Riviera](https://frankieriviera.com)) would be able to quickly spin up an authentication and authorization service for my personal projects, while also being dynamic in that it can be configured quickly and easily for different use cases.
 
-However I have intended on structuring this Readme in such a way that anyone could pull the Docker Image and plug and play with this Auth microservice to hopfully save them from rewriting auth logic the way it has for me.
+However I have intended on structuring this readme in such a way that anyone could pull the Docker image and plug and play with this auth microservice. Hopfully it saves you time from rewriting auth logic the way it has for me.
 
-### The DockerHub image can be found [here](https://hub.docker.com/repository/docker/dariv94/fgrauthservice)
+### The image can be found on DockerHub [here](https://hub.docker.com/repository/docker/dariv94/fgrauthservice)
 Pull down Image
 ```
 docker pull fgrauthservice
@@ -16,7 +16,7 @@ docker pull fgrauthservice
 # QuickStart
 
 ### Prerequisites
-- Docker - find intructions on install docker [here](https://docs.docker.com/get-docker/)
+- Docker - find intructions on installing docker [here](https://docs.docker.com/get-docker/)
 - A learners mindset. - I live by the phrase *"Everything is hard until you know it"*
 
 ### 1. Create config.json file with configuration data. (Find documentation and examples on config.json file below)
@@ -32,11 +32,13 @@ docker run -it --rm -v ${pwd}/config.json:/app/config.json fgrauthservice npm ru
  
  This should output your *.env* file which should contain your FGRCONFIG base64 encoded Key value pair, along with the PORT and NODE_ENV key value pairs if they were specified in your config.json.
  *NOTE*: If there was already an existing *.env* file, this command will output *0_copy.env* and then if that exists it will put put *1_copy.env* and so on..
+
  ### 3. Then start the auth microservice!
 ```
 docker run --rm -p 4000:4000 --from-env .env fgrauthservice
 ```
-Your should now be able to send a GET request to http://localhost:4000/healthy and get a HTTP 200 OK response.
+
+Assuming your auth service was configured to use port 4000 and your configuration didnt have an error you should now be able to send a GET request to http://localhost:4000/healthy and get a HTTP 200 OK response.
 
 <!-- 2. run `node ./createconfig.js` in the root folder where your config.js file is and add the output of the file as your *FGRCONFIG* to your .env file
 3. Start docker-compose `docker-compose up`
@@ -67,7 +69,8 @@ __"simple"__ - One user account, one Admin account  _(NOTE: only this works at t
 
 __"finite"__ - Finite user accounts, finite admin accounts
 
-__"multi"__ - Many user accounts, many admin accounts
+<!-- Future feature
+__"multi"__ - Many user accounts, many admin accounts -->
 
 EX: `"authServiceType": "simple"`
 
