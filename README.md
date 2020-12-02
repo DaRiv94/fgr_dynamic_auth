@@ -1,4 +1,5 @@
-Welcome to the FGR Dynamic auth service!!
+# Welcome to the FGR Dynamic auth service!
+
 
 ## What is this project?
 
@@ -158,4 +159,11 @@ authServiceType:simple  Endpoints
   console.log(response.body)
 ``` -->
 
+---
+
+[<img src="./images/FGR_Transparent.png" width="100" />](https://frankieriviera.com)
+
+This is an FGR project.
+
+Check out my [Online Portfolio](https://frankieriviera.com/portfolio) to see some of my other work!
 
