@@ -23,21 +23,30 @@ docker pull dariv94/fgrauthservice
 ### 2. In the same directory as your config.json file, run the following...  
 **Powershell** 
 ```
-docker run --rm -v ${pwd}/config.json:/app/config.json dariv94/fgrauthservice npm run config
+docker run -v ${pwd}/config.json:/app/config.json --name fgrauthservice_env dariv94/fgrauthservice npm run config
 ```
  **Bash/Zsh**
  ```
- docker run --rm -v $(pwd)/config.json:/app/config.json dariv94/fgrauthservice npm run config
+ docker run -v $(pwd)/config.json:/app/config.json --name fgrauthservice_env dariv94/fgrauthservice npm run config
  ```
  
- This should output your *.env* file which should contain your FGRCONFIG base64 encoded Key value pair, along with the PORT and NODE_ENV key value pairs if they were specified in your config.json.
- *NOTE*: If there was already an existing *.env* file, this command will output *0_copy.env* and then if that exists it will put put *1_copy.env* and so on..
- 
- If you want to overwrite an existing *.env* file with a new *.env* file, you can add the argument `overwrite` to the create config commmand.
+ This should output your *.env* in your docker container, we can copy it to our host machine with the following command.
 
- ### 3. Then start the auth microservice!
+ **Powershell** 
+ ```
+ docker cp fgrauthservice_env:/app/.env ${pwd}/
+ ```
+
+  **Bash/Zsh**
+ ```
+docker cp fgrauthservice_env:/app/.env $(pwd)/
+ ```
+
+You should now have your *.env* for your auth service ready to go! (NOTE: this cmd WILL overwrite an existing *.env* file in the directory where is command is run.)
+
+ ### 4. Then start the auth microservice!
 ```
-docker run --rm -p 4000:4000 --from-env .env dariv94/fgrauthservice
+docker run --rm -p 4000:4000 --env-file .env dariv94/fgrauthservice
 ```
 
 Assuming your auth service was configured to use port 4000 and your configuration didnt have an error you should now be able to send a GET request to http://localhost:4000/healthy and get a HTTP 200 OK response.
