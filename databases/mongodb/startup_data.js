@@ -1,4 +1,4 @@
-let config = require('../../config');
+let config = require('../../read_config');
 const { User }= require('./models/User');
 
 module.exports= async ()=>{ 

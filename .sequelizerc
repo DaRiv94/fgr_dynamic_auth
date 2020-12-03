@@ -2,7 +2,7 @@
 
 const path = require('path');
 require('dotenv').config()
-config = require('./config');
+config = require('./read_config');
 
 if(config.database_type=="POSTGRES"){
     console.log("Configuring Postgres Sequelize CLI...")

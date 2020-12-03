@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-config = require('../../config');
+config = require('../../read_config');
 let validateEmail = require('../routeHelpers/finiteAuthService/validateEmail')
 let bcrypt = require('bcryptjs');
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('@hapi/joi');
-// let config = require('../../config');
+// let config = require('../../read_config');
 
 
 const userSchema = new mongoose.Schema({

@@ -1,9 +1,10 @@
 const jwt  = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
-config = require('../../../config');
+config = require('../../../read_config');
+console.log("CHECK ME OUT HERE!4")
 
 let User = require('../../../databases/postgres/models/User')
-
+console.log("CHECK ME OUT HERE!5")
 
 // post "/" config.authServiceType=="simple"
 async function postLoginFiniteAuthServiceType(req, res, email, password){

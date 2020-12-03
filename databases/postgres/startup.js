@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-config = require('../../config');
+config = require('../../read_config');
 
 
 connection_string = config.database_connectionstring

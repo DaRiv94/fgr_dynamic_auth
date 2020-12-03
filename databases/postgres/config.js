@@ -1,6 +1,6 @@
 require('dotenv').config()
 console.log("GGGGOOOT HEHERE")
-config = require('../../config')
+config = require('../../read_config')
 module.exports = {
     development: {
         username: config.DB_USERNAME,

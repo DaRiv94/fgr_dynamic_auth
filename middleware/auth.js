@@ -1,5 +1,5 @@
 const jwt  = require('jsonwebtoken');
-config = require('../config');
+config = require('../read_config');
 
 
 ///THIS NEEDS TO BE UPDATED!!

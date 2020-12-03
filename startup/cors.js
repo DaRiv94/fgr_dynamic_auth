@@ -1,5 +1,5 @@
 const cors = require('cors');
-config = require('../config');
+config = require('../read_config');
 
 module.exports=(app)=>{
 

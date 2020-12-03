@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-config = require('../../config');
+config = require('../../read_config');
 
 
 //https://docs.mongodb.com/manual/tutorial/query-documents/
