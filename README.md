@@ -32,7 +32,7 @@ docker run -v ${pwd}/config.json:/app/config.json --name fgrauthservice_env dari
  docker run -v $(pwd)/config.json:/app/config.json --name fgrauthservice_env dariv94/fgrauthservice npm run config
  ```
  
- This should output your *.env* in your docker container, we can copy it to our host machine with the following command.
+ ### 3. The last command should output your *.env* in your docker container, we can copy it to our host machine with the following command.
 
  **Powershell** 
  ```
