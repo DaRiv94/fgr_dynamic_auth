@@ -5,6 +5,8 @@
 
 FGR Dynamic Auth Service was created so that I ([Frankie Riviera](https://frankieriviera.com)) would be able to quickly spin up an authentication and authorization service for my personal projects, while also being dynamic in that it can be configured quickly and easily for different use cases.
 
+Im currently using the FGR Dynamic Auth Service in my [Kubernetes Demo](https://frankieriviera.com/portfolio/kubernetes-demo)!
+
 However I have intended on structuring this readme in such a way that anyone could pull the Docker image and plug and play with this auth microservice. Hopfully it saves you time from rewriting auth logic the way it has for me.
 
 ### The image can be found on DockerHub [here](https://hub.docker.com/repository/docker/dariv94/fgrauthservice)
@@ -42,7 +44,7 @@ docker run -v ${pwd}/config.json:/app/config.json --name fgrauthservice_env dari
 docker cp fgrauthservice_env:/app/.env $(pwd)/
  ```
 
-You should now have your *.env* for your auth service ready to go! (NOTE: this cmd WILL overwrite an existing *.env* file in the directory where is command is run.)
+You should now have your *.env* for your auth service ready to go! (NOTE: this cmd WILL overwrite an existing *.env* file in the directory where this command is run.)
 
  ### 4. Then start the auth microservice!
 ```
@@ -51,19 +53,9 @@ docker run --rm -p 4000:4000 --env-file .env dariv94/fgrauthservice
 
 Assuming your auth service was configured to use port 4000 and your configuration didnt have an error you should now be able to send a GET request to http://localhost:4000/healthy and get a HTTP 200 OK response.
 
-A Note on using POSTGRES for finiteAuthService. Sequelize is the ORM used to query the database, migrations can be ran if needed using teh sequelize CLI to great your Users table. Assuming your postgres database is running, you can run the migration with the following command
+A Note on using POSTGRES for finiteAuthService. Sequelize is the ORM used to query the database. Database migrations can be ran if needed using the Sequelize CLI to create your Users table. Assuming your postgres database is running, you can run the migration with the following command.
 
-`docker run --rm --env-file .env dariv94/fgrauthservice npx sequelize db:migrate` If your postgres database is running in a docker container you will want to create a docker network and ensure both containers are on the same network. You can learn more about docker networks [here](https://docs.docker.com/network/)
-
-<!-- 2. run `node ./createconfig.js` in the root folder where your config.js file is and add the output of the file as your *FGRCONFIG* to your .env file
-3. Start docker-compose `docker-compose up`
-4. (finite config using sequelize orm only, Run migrations `docker exec fgr_dynamic_auth_web_1 npx sequelize db:migrate`) -->
-<!-- 
-
-Thanks for checking out the readme for this docker file-  `docker run dariv94\/fgrauthservice npm run readme` -->
-
-<!-- You will need to create a config file and encode it then add it as the env var FGRCONFIG
-Create a config.json file like this... -->
+`docker run --rm --env-file .env dariv94/fgrauthservice npx sequelize db:migrate` (NOTE:If your postgres database is running in a docker container you will want to create a docker network and ensure both containers are on the same network. You can learn more about docker networks [here](https://docs.docker.com/network/))
 
 # Simple Auth config.json Example 
 
@@ -84,7 +76,7 @@ Create a config.json file like this... -->
 {
     "authServiceType": "finite",
     "database_type": "POSTGRES",
-    "database_connectionstring": "postgres://postgres:postgres@dynamic_local_postgres:5432/local_postgres_db",
+    "database_connectionstring": "postgres://postgres:postgres@local_postgres_container_name:5432/local_postgres_db",
     "user_account_limit": 3,
     "admin_account_limit": 2,
     "admin_creation_secret": "myadminsecret123",
@@ -246,7 +238,7 @@ authServiceType:simple  Endpoints
 - Endpoint: `/auth/login`
 - Method: `POST`
 - Request Body: `{"password":"<PASSWORD_HERE>"}`
-- 400 Request Retrun body: `Invalid Password`  (Content-Type: text/html)
+- 400 Request Return body: `Invalid Password`  (Content-Type: text/html)
 - 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
 
 
@@ -254,9 +246,9 @@ authServiceType:simple  Endpoints
 ----
 - Endpoint: `/auth`
 - Method: `POST`
-- Request Header: `a-auth-token:<JWT_TOKEN_WILL_BE_HERE>`
+- Request Header: `x-auth-token:<JWT_TOKEN_WILL_BE_HERE>`
 - Request Body: `none`
-- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+- 400 Return body: `Invalid Password`  (Content-Type: text/html)
 - 200 Example Return Body: `{"isAdmin": true,"age": 27,"color": "green","iat": 1606971336}`(Content-Type: application/json)
 
 authServiceType:finite  Endpoints
@@ -266,32 +258,36 @@ authServiceType:finite  Endpoints
 ----
 - Endpoint: `/auth/register`
 - Method: `POST`
-- Request Body: `{"email": "DD.com","password": "mypass","password2": "mypass","admin_creation_secret": "myadminsecret123"}` (NOTE: admin_creation_secret only needed when creating admin users)
+- Request Body: `{"email": "youremail@outlook.com","password": "mypass","password2": "mypass","admin_creation_secret": "myadminsecret123"}` (NOTE: admin_creation_secret only needed when creating admin users)
+- 400 Example Return body: `Invalid Password`  (Content-Type: text/html)
+- 400 2nd Example Return body: `{"detail": "Invalid admin_creation_secret"}`  (Content-Type: application/json)
 - 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
-- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
 
 /auth/login
 ----
 - Endpoint: `/auth/login`
 - Method: `POST`
-- Request Body: `{"password":"<PASSWORD_HERE>"}`
-- 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
-- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+- Request Body: `{"email": "youremail@outlook.com","password":"<PASSWORD_HERE>"}`
+- 400 2nd Example Return body: `{"detail": "Your Username or Password is incorrect"}`  (Content-Type: application/json)
+- 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>","is_admin": true,"email": "d@d.com","id": 7, ...Other user details }` (Content-Type: application/json)
 
 
 /auth
 ----
 - Endpoint: `/auth`
 - Method: `POST`
-- Request Header: `a-auth-token:<JWT_TOKEN_WILL_BE_HERE>`
+- Request Header: `x-auth-token:<JWT_TOKEN_WILL_BE_HERE>`
 - Request Body: `none`
-- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+- 401 Return body: `Unauthorized, no auth token provided`  (Content-Type: text/html)
+- 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>","is_admin": true,"email": "d@d.com","id": 7, ...Other user details }` (Content-Type: application/json)
 
 ---
 
 [<img src="./images/FGR_Transparent.png" width="100" />](https://frankieriviera.com)
 
 This is an FGR project.
+
+Im currently using the FGR Dynamic Auth Service in my [Kubernetes Demo](https://frankieriviera.com/portfolio/kubernetes-demo)!
 
 Check out my [Online Portfolio](https://frankieriviera.com/portfolio) to see some of my other work!
 
