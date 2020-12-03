@@ -1,11 +1,11 @@
-# Welcome to the FGR Dynamic auth service!
+# Welcome to the FGR Dynamic Authentication Service!
 
 
 ## What is this project?
 
-FGR Dynamic Auth Service was created so that I ([Frankie Riviera](https://frankieriviera.com)) would be able to quickly spin up an authentication and authorization service for my personal projects, while also being dynamic in that it can be configured quickly and easily for different use cases.
+FGR Dynamic Authentication Service was created so that I ([Frankie Riviera](https://frankieriviera.com)) would be able to quickly spin up an authentication and authorization service for my personal projects, while also being dynamic in that it can be configured quickly and easily for different use cases.
 
-Im currently using the FGR Dynamic Auth Service in my [Kubernetes Demo](https://frankieriviera.com/portfolio/kubernetes-demo)!
+Im currently using the FGR Dynamic Authentication Service in my [Kubernetes Demo](https://frankieriviera.com/portfolio/kubernetes-demo)!
 
 However I have intended on structuring this readme in such a way that anyone could pull the Docker image and plug and play with this auth microservice. Hopfully it saves you time from rewriting auth logic the way it has for me.
 
@@ -287,7 +287,7 @@ authServiceType:finite  Endpoints
 
 This is an FGR project.
 
-Im currently using the FGR Dynamic Auth Service in my [Kubernetes Demo](https://frankieriviera.com/portfolio/kubernetes-demo)!
+Im currently using the FGR Dynamic Authentication Service in my [Kubernetes Demo](https://frankieriviera.com/portfolio/kubernetes-demo)!
 
 Check out my [Online Portfolio](https://frankieriviera.com/portfolio) to see some of my other work!
 
