@@ -1,16 +1,16 @@
 const jwt  = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 config = require('../../../read_config');
-console.log("CHECK ME OUT HERE!4")
 
 let User = require('../../../databases/postgres/models/User')
-console.log("CHECK ME OUT HERE!5")
 
-// post "/" config.authServiceType=="simple"
+// post "/" config.authServiceType=="finite"
 async function postLoginFiniteAuthServiceType(req, res, email, password){
     console.log("postLoginFiniteAuthServiceType....")
     try{
         
+        // I will want to create a repository functions for when I implement other databases
+        // Then I will do simple calls like const user = await getUserByEmail(email)
         const user = await User.findOne({
             where: {
                 email: email.toLowerCase()
@@ -26,7 +26,10 @@ async function postLoginFiniteAuthServiceType(req, res, email, password){
             //Password was incorrect
             return res.status(404).json({detail:"Your Username or Password is incorrect"});
         }
-        userData = {is_admin:user.is_admin, 
+
+        //Serialize Response
+        userData = {
+            is_admin:user.is_admin, 
             email:user.email,
             email_verified:user.email_verified,
             id:user.id,
@@ -35,6 +38,7 @@ async function postLoginFiniteAuthServiceType(req, res, email, password){
             token_createdAt: Date.now() }
         token= jwt.sign(userData, config.jwtsecret);
         responseObject = Object.assign({token}, userData);
+        
         return res.send(responseObject);
 
     } catch(err){

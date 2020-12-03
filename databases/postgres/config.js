@@ -1,5 +1,4 @@
 require('dotenv').config()
-console.log("GGGGOOOT HEHERE")
 config = require('../../read_config')
 module.exports = {
     development: {

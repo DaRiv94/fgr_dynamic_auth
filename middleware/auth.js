@@ -21,10 +21,12 @@ module.exports=function (req, res, next){
                     req.user = decoded;
                     next();
                 }catch(ex){
-                    return res.status(400).send('Invalid token')
+                    return res.status(400).send("Invalid token");
+                    // return res.status(400).json({detail:"Invalid Token"});
                 }
             }else{
-                return res.status(400).send('Invalid token')
+                return res.status(400).send("Invalid token");
+                // return res.status(400).json({detail:"Invalid Token"});
             }
 
         }
@@ -34,13 +36,13 @@ module.exports=function (req, res, next){
 
             //Token expires in 3,600,000 milliseconds (1 hour) (1000 is 1 second: 60000 is one minute)
             if(Date.now() - decoded.token_createdAt > 3600000){
-                return res.status(400).send('Token Expired')
+                return res.status(400).json({detail:"Token Expired"});
             }
 
             req.user = decoded;
             next();
         }catch(ex){
-            return res.status(400).send('Invalid token')
+            return res.status(400).json({detail:"Invalid Token"});
         }
     }
 }

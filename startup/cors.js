@@ -10,7 +10,6 @@ module.exports=(app)=>{
         app.use(cors());
     }else{
 
-        // var whitelist = ['https://decide.center', 'https://fgr-decide.surge.sh'];
         var whitelist = config.whitelist;
         var corsOptions = {
             origin: function (origin, callback) {

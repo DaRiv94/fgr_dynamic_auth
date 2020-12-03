@@ -33,7 +33,7 @@ docker run --rm -v ${pwd}/config.json:/app/config.json dariv94/fgrauthservice np
  This should output your *.env* file which should contain your FGRCONFIG base64 encoded Key value pair, along with the PORT and NODE_ENV key value pairs if they were specified in your config.json.
  *NOTE*: If there was already an existing *.env* file, this command will output *0_copy.env* and then if that exists it will put put *1_copy.env* and so on..
  
- If you want to want to overwrite an existing .env file with a new .env file, you can add the argument `overwrite` to the create config commmand.
+ If you want to overwrite an existing *.env* file with a new *.env* file, you can add the argument `overwrite` to the create config commmand.
 
  ### 3. Then start the auth microservice!
 ```
@@ -41,6 +41,10 @@ docker run --rm -p 4000:4000 --from-env .env dariv94/fgrauthservice
 ```
 
 Assuming your auth service was configured to use port 4000 and your configuration didnt have an error you should now be able to send a GET request to http://localhost:4000/healthy and get a HTTP 200 OK response.
+
+A Note on using POSTGRES for finiteAuthService. Sequelize is the ORM used to query the database, migrations can be ran if needed using teh sequelize CLI to great your Users table. Assuming your postgres database is running, you can run the migration with the following command
+
+`docker run --rm --env-file .env dariv94/fgrauthservice npx sequelize db:migrate` If your postgres database is running in a docker container you will want to create a docker network and ensure both containers are on the same network. You can learn more about docker networks [here](https://docs.docker.com/network/)
 
 <!-- 2. run `node ./createconfig.js` in the root folder where your config.js file is and add the output of the file as your *FGRCONFIG* to your .env file
 3. Start docker-compose `docker-compose up`
@@ -55,11 +59,28 @@ Create a config.json file like this... -->
 # Simple Auth config.json Example 
 
 ```
-{ 
-"authServiceType": "simple", 
-"userPassword": "Password123!",
-"adminPassword": "adminPassword123!",
-"whitelist":["http://localhost:4000"]
+{
+    "authServiceType": "simple",
+    "userPassword": "Password123!",
+    "userMetadata": {"age": 25,"color": "blue"},
+    "adminPassword": "adminPassword123!",
+    "adminMetadata": { "age": 27, "color": "green" },
+    "whitelist": ["*"]
+}
+```
+
+# Finite Auth config.json Example 
+
+```
+{
+    "authServiceType": "finite",
+    "database_type": "POSTGRES",
+    "database_connectionstring": "postgres://postgres:postgres@dynamic_local_postgres:5432/local_postgres_db",
+    "user_account_limit": 3,
+    "admin_account_limit": 2,
+    "admin_creation_secret": "myadminsecret123",
+    "jwtsecret": "fgrabc123",
+    "whitelist": ["*"]
 }
 ```
 
@@ -97,7 +118,7 @@ EX `"userPassword": "Password123!"`
 ---
  __\<Object\>__ - User Metadata
  
-EX `"userMetadata": { "isAdmin":false, "color":"blue"}`
+EX `"userMetadata": { "age": 25, "color":"blue"}`
 
 ---
 adminPassword _(simple authServiceType [required], finite authServiceType [ignored], )_ 
@@ -111,7 +132,7 @@ EX `"adminPassword": "adminPassword123!"`
 ---
  __\<Object\>__ - Admin Metadata
  
-EX `"adminMetadata": { "isAdmin":false, "color":"blue"}`
+EX `"adminMetadata": { "age": 27, "color":"blue"}`
 
 ---
 whitelist _(ALL authServiceType [required] )_
@@ -146,7 +167,7 @@ EX `"node_env":"development"`
 ---
 database_type _(simple authServiceType [ignored], finite authServiceType [required], )_
 ---
- __\<String\>__ - String representing your type of database, currently the only two avilable options are `MONGODB` and `POSTGRES`
+ __\<String\>__ - String representing your type of database, currently the only avilable option is `POSTGRES`
  
 EX `"database_type":"POSTGRES"`
 
@@ -216,21 +237,9 @@ authServiceType:simple  Endpoints
 - Endpoint: `/auth/login`
 - Method: `POST`
 - Request Body: `{"password":"<PASSWORD_HERE>"}`
+- 400 Request Retrun body: `Invalid Password`  (Content-Type: text/html)
 - 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
-- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
 
-<!-- Curl example -->
-<!-- Fetch Example...
-```
-  const response = fetch('http://localhost:4000/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({password:"mypassword"})
-  });
-  console.log(response.body)
-``` -->
 
 /auth
 ----
@@ -239,17 +248,35 @@ authServiceType:simple  Endpoints
 - Request Header: `a-auth-token:<JWT_TOKEN_WILL_BE_HERE>`
 - Request Body: `none`
 - 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+- 200 Example Return Body: `{"isAdmin": true,"age": 27,"color": "green","iat": 1606971336}`(Content-Type: application/json)
 
-<!-- Fetch Example...
-```
-  const response = fetch('http://localhost:4000/auth', {
-    method: 'POST',
-    headers: {
-      'x-auth-token': 'application/json'
-    },
-  });
-  console.log(response.body)
-``` -->
+authServiceType:finite  Endpoints
+---
+
+/auth/register
+----
+- Endpoint: `/auth/register`
+- Method: `POST`
+- Request Body: `{"email": "DD.com","password": "mypass","password2": "mypass","admin_creation_secret": "myadminsecret123"}` (NOTE: admin_creation_secret only needed when creating admin users)
+- 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
+- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+
+/auth/login
+----
+- Endpoint: `/auth/login`
+- Method: `POST`
+- Request Body: `{"password":"<PASSWORD_HERE>"}`
+- 200 Return Body: `{"token":"<JWT_TOKEN_WILL_BE_HERE>"}` (Content-Type: application/json)
+- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
+
+
+/auth
+----
+- Endpoint: `/auth`
+- Method: `POST`
+- Request Header: `a-auth-token:<JWT_TOKEN_WILL_BE_HERE>`
+- Request Body: `none`
+- 400 Retrun body: `Invalid Password`  (Content-Type: text/html)
 
 ---
 
