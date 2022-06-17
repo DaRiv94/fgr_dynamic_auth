@@ -9,10 +9,23 @@ if (config.database_connectionstring_dev && process.env.NODE_ENV=='development')
     connection_string = config.database_connectionstring_dev
 }
 
+
+
+
+
 //Postgres DB
 const db = new Sequelize(connection_string, {
-    dialect: 'postgres'
+    dialect: 'postgres',
+    ssl:true,
+        dialectOptions:{
+           ssl:{
+              require:true
+           }
+        }
   })
+
+  //The SSL may be on connnection string seeing as ?sslmode=require I might add logic later to add ssl above based on this in connection string or not
+
 
 db
     .authenticate()
