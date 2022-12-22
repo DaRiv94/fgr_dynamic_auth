@@ -7,7 +7,7 @@
         "cors": "*",
         "dotenv": "*",
         "express": "*",
-        "jsonwebtoken": "^8.5.1",
+        "jsonwebtoken": "^9.0.0",
         "mongoose": "^5.11.2",
         "nodemon": "^2.0.6",
         "pg": "^8.5.1",
