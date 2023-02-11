@@ -9,7 +9,7 @@
         "express": "*",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.11.2",
-        "nodemon": "^2.0.6",
+        "nodemon": "^2.0.20",
         "pg": "^8.5.1",
         "pg-hstore": "^2.3.3",
         "sequelize": "^6.3.5",
